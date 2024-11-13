@@ -1,15 +1,19 @@
 class CaesarsCipher:
-    """Класс для шифрования и расшифрования сообщений с помощью шифра Цезаря."""
+    """Класс для шифрования и расшифрования сообщений
+    с помощью шифра Цезаря."""
 
     def __init__(self):
-        self.characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890 !?."
+        self.characters =\
+            ("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghi"
+             "jklmnopqrstuvwxyz1234567890 !?.")
 
     def decrypt(self, message: str, key: int) -> str:
         """Метод для расшифровки сообщения с заданным ключом."""
         decrypted_message = ""
         for char in message:
             if char in self.characters:
-                index = (self.characters.index(char) - key) % len(self.characters)
+                index = ((self.characters.index(char) - key)
+                         % len(self.characters))
                 decrypted_message += self.characters[index]
             else:
                 decrypted_message += char  # Оставляем символ без изменений
@@ -20,7 +24,8 @@ class CaesarsCipher:
         encrypted_message = ""
         for char in message:
             if char in self.characters:
-                index = (self.characters.index(char) + key) % len(self.characters)
+                index = ((self.characters.index(char) + key)
+                         % len(self.characters))
                 encrypted_message += self.characters[index]
             else:
                 encrypted_message += char  # Оставляем символ без изменений
@@ -32,8 +37,9 @@ def find_key(encrypted_message: str) -> int:
     cipher = CaesarsCipher()
     for key in range(len(cipher.characters)):
         decrypted_message = cipher.decrypt(encrypted_message, key)
-        # Проверяем, содержит ли расшифрованное сообщение хотя бы одно слово из списка известных слов
-        if "пароль" in decrypted_message:  # Например, если мы знаем, что пароль содержит это слово
+        # Проверяем, содержит ли сообщение хотя бы одно слово из списка
+        # Например, если мы знаем,что пароль содержит это слово
+        if "пароль" in decrypted_message:
             return key, decrypted_message
     return None, None
 
